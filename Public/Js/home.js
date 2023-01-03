@@ -1,12 +1,23 @@
 $(document).ready(function(){
     $("#srchBtn").click(function(){
-        var val = $("#value").val();
-        console.log(val);
-        if(val =="") {
+        var city = $("#city").val();
+        console.log(city);
+        $("#pTag").text("Loading...");
+
+        if(city =="") {
             alert("Please enter the city name");
             return;
         }
-        alert("Success");
+        
+        $.ajax({
+            url: `/api/weather?city=${city}`,
+            type: 'GET',
+            success: function(res) {
+                console.log(res);
+                $("#pTag").text(res);
+                $("#city").val("");
+            }
+        });
     })
 
     
